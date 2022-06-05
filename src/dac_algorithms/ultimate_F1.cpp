@@ -49,7 +49,7 @@ GCReport getGCReport(GpioToButtonSets::F1::ButtonSet buttonSet) {
     if (up_wasPressed && bs.up && bs.down && !down_wasPressed) up_outlawUntilRelease=true;
     if (down_wasPressed && bs.up && bs.down && !up_wasPressed) down_outlawUntilRelease=true;
     
-    if 2IP_no_react {
+    if (2IP_no_react) {
         if (!bs.left) left_outlawUntilRelease=false;
         if (!bs.right) right_outlawUntilRelease=false;
         if (!bs.up) up_outlawUntilRelease=false;
