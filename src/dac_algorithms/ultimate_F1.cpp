@@ -49,10 +49,21 @@ GCReport getGCReport(GpioToButtonSets::F1::ButtonSet buttonSet) {
     if (up_wasPressed && bs.up && bs.down && !down_wasPressed) up_outlawUntilRelease=true;
     if (down_wasPressed && bs.up && bs.down && !up_wasPressed) down_outlawUntilRelease=true;
     
-    if (!bs.left || !bs.right && !2IP_no_react) left_outlawUntilRelease=false;
-    if (!bs.right || !bs.left && !2IP_no_react) right_outlawUntilRelease=false;
-    if (!bs.up || !bs.down && !2IP_no_react) up_outlawUntilRelease=false;
-    if (!bs.down || !bs.up && !2IP_no_react) down_outlawUntilRelease=false;
+    if 2IP_no_react {
+        if (!bs.left) left_outlawUntilRelease=false;
+        if (!bs.right) right_outlawUntilRelease=false;
+        if (!bs.up) up_outlawUntilRelease=false;
+        if (!bs.down) down_outlawUntilRelease=false;
+    } else {
+        if (!bs.left || !bs.right){
+            left_outlawUntilRelease=false;
+            right_outlawUntilRelease=false;
+        }
+        if (!bs.up || !bs.down){
+            up_outlawUntilRelease=false;
+            down_outlawUntilRelease=false;
+        }
+    }
 
     left_wasPressed = bs.left;
     right_wasPressed = bs.right;
