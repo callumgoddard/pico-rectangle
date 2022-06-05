@@ -21,7 +21,7 @@ bool down_outlawUntilRelease = false;
 // flag to set the SOCD type:
 // true = default 2IP no reactivation SOCD
 // false = 2IP with reactivation SOCD
-bool no_react_2IP = false;
+bool no_react_2IP = true;
 
 struct Coords {
     uint8_t x;
