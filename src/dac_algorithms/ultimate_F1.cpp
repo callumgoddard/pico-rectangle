@@ -17,6 +17,10 @@ bool left_outlawUntilRelease = false;
 bool right_outlawUntilRelease = false;
 bool up_outlawUntilRelease = false;
 bool down_outlawUntilRelease = false;
+    
+// flag to set the SOCD type
+// set to false to have 2IP with reactivation
+bool 2IP_no_react = true;
 
 struct Coords {
     uint8_t x;
@@ -37,17 +41,17 @@ GCReport getGCReport(GpioToButtonSets::F1::ButtonSet buttonSet) {
 
     GCReport gcReport = defaultGcReport;
 
-    /* 2IP No reactivation */
-    
+    /* 2IP */
+        
     if (left_wasPressed && bs.left && bs.right && !right_wasPressed) left_outlawUntilRelease=true;
     if (right_wasPressed && bs.left && bs.right && !left_wasPressed) right_outlawUntilRelease=true;
     if (up_wasPressed && bs.up && bs.down && !down_wasPressed) up_outlawUntilRelease=true;
     if (down_wasPressed && bs.up && bs.down && !up_wasPressed) down_outlawUntilRelease=true;
-
-    if (!bs.left) left_outlawUntilRelease=false;
-    if (!bs.right) right_outlawUntilRelease=false;
-    if (!bs.up) up_outlawUntilRelease=false;
-    if (!bs.down) down_outlawUntilRelease=false;
+    
+    if (!bs.left || !bs.right && !2IP_no_react) left_outlawUntilRelease=false;
+    if (!bs.right || !bs.left && !2IP_no_react) right_outlawUntilRelease=false;
+    if (!bs.up || !bs.down && !2IP_no_react) up_outlawUntilRelease=false;
+    if (!bs.down || !bs.up && !2IP_no_react) down_outlawUntilRelease=false;
 
     left_wasPressed = bs.left;
     right_wasPressed = bs.right;
